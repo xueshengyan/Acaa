@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xsy.acaa.mapper.user.UserMapper">
+
+
+    <!--根据id查询用户-->
+    <select id="getUserById"  resultType="user">
+        select * from acaa_user WHERE id=#{id}
+    </select>
+
+    <!--登录-->
+    <select id="getLoginUser" resultType="user">
+        select * from acaa_user
+        where userName=#{userName} and password=#{password}
+    </select>
+
+    <!--查询用户列表并分页-->
+    <select id="getUserList"  resultType="user">
+        SELECT * FROM acaa_user
+</select>
+
+
+
+
+    <!--添加用户-->
+    <insert id="add">
+        insert into acaa_user (userName,password,idPicPath)
+        values(#{userName},#{password}, #{idPicPath})
+    </insert>
+
+
+
+    <update id="modify">
+        update acaa_user
+        <trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+            <if test="userName !=null and userName != '' ">userName=#{userName}, </if>
+            <if test="password !=null and password != '' ">password=#{password}, </if>
+        </trim>
+
+    </update>
+
+
+    <delete id="deleteUserById">
+        delete from acaa_user WHERE id = #{id}
+    </delete>
+
+
+
+
+</mapper>
